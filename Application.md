@@ -1,21 +1,23 @@
-** City on a Cloud 2017 **
+## City on a Cloud 2017 ##
+
+Provide comments 
 
 Challenge url - https://aws.amazon.com/stateandlocal/cityonacloud/
 
 Application url - https://beta.younoodle.com/competition/aws_city_on_a_cloud_2017
 
-Appling for: Partners in Innovation Award for local government or education applications running on Amazon Web Services submitted by commercial or education entities 
+Appling for: Partners in Innovation Award for local government or education applications running on Amazon Web Services submitted by commercial or education entities
 
 Deadline: May 12th
 
-*** Application form ***
+### Application form ###
 
 Organization Name
 
 Please select your entry category
 - Best Practices Award (for local and regional government school, or school district projects - already implemented)
 - Partners in Innovation Award (for application developers, schools, and school districts)
-- Dream Big Award (for local and regional government, school, or school district projects - not yet implemented) 
+- Dream Big Award (for local and regional government, school, or school district projects - not yet implemented)
 
 What is your company or government entity's web address?
 
