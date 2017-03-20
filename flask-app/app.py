@@ -8,24 +8,6 @@ app = Flask(__name__)
 url = 'http://spires2.cityoffrederick.com/ArcGIS/rest/services/maptorender/MapServer/export?bbox=1189970.24945014%2C637070.413482656%2C1210045.399164%2C645541.933225805&bboxSR=&layers=&layerdefs=&size=1600%2C1200&imageSR=&format=png&transparent=false&dpi=&time=&layerTimeOptions=&f=image'
 
 @app.route('/')
-def aerial_2014():
-    img = requests.get(url.replace('maptorender', 'Aerial_2014'))
-
-    return(Flask.response_class(img, mimetype='image/png'))
-
-@app.route('/base')
-def basecombined():
-    img = requests.get(url.replace('maptorender', 'BaseCombined'))
-
-    return(Flask.response_class(img, mimetype='image/png'))
-
-@app.route('/contours')
-def contours():
-    img = requests.get(url.replace('maptorender', 'Contours'))
-
-    return(Flask.response_class(img, mimetype='image/png'))
-
-@app.route('/mapurls')
 def mapurls():
     url = 'http://spires2.cityoffrederick.com/ArcGIS/rest/services/'
     maps = requests.get(url)
