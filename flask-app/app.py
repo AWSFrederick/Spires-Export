@@ -1,11 +1,51 @@
 from flask import Flask
 import requests
+from bs4 import BeautifulSoup
 
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    img = requests.get('http://spires2.cityoffrederick.com/ArcGIS/rest/services/Aerial_2014/MapServer/export?bbox=1171900.00012207%2C+622900.000122067%2C+1218100.00012207%2C+669100.000122077&bboxSR=&layers=layers%3Dshow%3A7&layerdefs=&size=1600%2C1200&imageSR=&format=png&transparent=false&dpi=&time=&layerTimeOptions=&f=image')
+url = 'http://spires2.cityoffrederick.com/ArcGIS/rest/services/maptorender/MapServer/export?bbox=1189970.24945014%2C637070.413482656%2C1210045.399164%2C645541.933225805&bboxSR=&layers=&layerdefs=&size=1600%2C1200&imageSR=&format=png&transparent=false&dpi=&time=&layerTimeOptions=&f=image'
 
+@app.route('/')
+def aerial_2014():
+    img = requests.get(url.replace('maptorender', 'Aerial_2014'))
+
+    return(Flask.response_class(img, mimetype='image/png'))
+
+@app.route('/base')
+def basecombined():
+    img = requests.get(url.replace('maptorender', 'BaseCombined'))
+
+    return(Flask.response_class(img, mimetype='image/png'))
+
+@app.route('/contours')
+def contours():
+    img = requests.get(url.replace('maptorender', 'Contours'))
+
+    return(Flask.response_class(img, mimetype='image/png'))
+
+@app.route('/mapurls')
+def mapurls():
+    url = 'http://spires2.cityoffrederick.com/ArcGIS/rest/services/'
+    maps = requests.get(url)
+    encoding = maps.encoding if 'charset' in maps.headers.get('content-type', '').lower() else None
+    soup = BeautifulSoup(maps.content, from_encoding=encoding)
+    
+    map_links = []
+    for link in soup.find_all('a', href=True):
+        if "MapServer" in link['href']:
+            map_links.append(link['href'])
+
+    #print(map_links)
+    new_map_links = []
+    for map_link in map_links:
+        new_map_links.append(
+            '<a href="http://127.0.0.1:5000/export/%s">%s</a><br>' % (map_link.replace('/ArcGIS/rest/services/','').replace('/MapServer', ''), map_link.replace('/ArcGIS/rest/services/','').replace('/MapServer', ''))
+        )
+    return('\n'.join(new_map_links))
+
+@app.route('/export/<map>')
+def export(map):
+    img = requests.get(url.replace('maptorender', map))
     return(Flask.response_class(img, mimetype='image/png'))
