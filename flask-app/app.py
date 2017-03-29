@@ -23,7 +23,7 @@ def mapurls():
     new_map_links = []
     for map_link in map_links:
         new_map_links.append(
-            '<a href="http://127.0.0.1:5000/export/%s">%s</a><br>' % (map_link.replace('/ArcGIS/rest/services/','').replace('/MapServer', ''), map_link.replace('/ArcGIS/rest/services/','').replace('/MapServer', ''))
+            '<a href="/export/%s">%s</a><br>' % (map_link.replace('/ArcGIS/rest/services/','').replace('/MapServer', ''), map_link.replace('/ArcGIS/rest/services/','').replace('/MapServer', ''))
         )
     return('\n'.join(new_map_links))
 
