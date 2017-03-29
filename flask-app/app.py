@@ -31,3 +31,7 @@ def mapurls():
 def export(map):
     img = requests.get(url.replace('maptorender', map))
     return(Flask.response_class(img, mimetype='image/png'))
+
+@app.route('/status')
+def status():
+    return('AWS Frederick OK')
